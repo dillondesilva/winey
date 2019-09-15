@@ -11,6 +11,9 @@ from sklearn.externals import joblib
 
 # Importing Wine Data Set
 dataset_url = 'http://mlr.cs.umass.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv'
-data = pd.read_csv(dataset_url)
+data = pd.read_csv(dataset_url, sep=";")
 
-print (data.head())
+print(data.head())
+
+print(data.shape)
+print(data.describe())
