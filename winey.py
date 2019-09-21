@@ -43,8 +43,25 @@ rf_clf.fit(X_train, y_train)
 # on the test data
 pred = rf_clf.predict(X_test)
 
-print(r2_score(y_test, pred))
-print(mean_squared_error(y_test, pred))
+print("R2 Score:", str(r2_score(y_test, pred) * 100) + "%")
+print("Mean squared error:", str(mean_squared_error(y_test, pred) * 100) + "%")
+
+# Outputting results of model agaisnt test data
+print("\n### PREDICTING WINE QUALITY RESULTS USING RANDOM FOREST REGRESSION ###")
+print("\n### Test Data Sample ###\n")
+print(X_train.head())
+
+print("\n### Predicted Wine Quality vs Actual Wine Quality ###\n")
+y_test_vals = list(y_test)
+
+rnd_pred = []
+
+for i in pred:
+  rnd_pred.append(round(i))
+
+for n in range(0, 5):
+  print("Predicted Quality: " + str(rnd_pred[n]) + ", Actual Quality: " + str(y_test_vals[n]))
+
 
 # Dump the random forest regressor model
 # into a file
