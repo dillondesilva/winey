@@ -18,34 +18,29 @@ print(data.head())
 print(data.shape)
 print(data.describe())
 
-# Seperating the target data from training features
+# Seperating the target feature data
+# from the rest of the data
 y = data.quality 
 X = data.drop('quality', axis=1)
 
-# Splitting data into train and test sets
+# Splitting data into training and test data sets.
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123, stratify=y)
 
-scaler = preprocessing.StandardScaler().fit(X_train)
-X_train_scaled = scaler.transform(X_train)
-
-print(X_train_scaled.mean(axis=0))
-print(X_train_scaled.std(axis=0))
-
-X_test_scaled = scaler.transform(X_train)
-print(X_test_scaled.mean(axis=0))
-print(X_test_scaled.std(axis=0))
-
+# Data preprocessing...
 pipeline = make_pipeline(preprocessing.StandardScaler(), 
                         RandomForestRegressor(n_estimators=100))
 
+# Parameters to adjust for Random Forest Regressor Model
 hyperparameters = { 'randomforestregressor__max_features' : ['auto', 'sqrt', 'log2'],
                   'randomforestregressor__max_depth': [None, 5, 3, 1]}
 
-# Performing cross-validation with pipeline
+# Performing cross-validation with pipeline on model
 rf_clf = GridSearchCV(pipeline, hyperparameters, cv=10)
 
 rf_clf.fit(X_train, y_train)
 
+# Evalutating effectiveness of model pipeline
+# on the test data
 pred = rf_clf.predict(X_test)
 
 print(r2_score(y_test, pred))
