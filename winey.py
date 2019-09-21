@@ -59,7 +59,7 @@ rnd_pred = []
 for i in pred:
   rnd_pred.append(round(i))
 
-for n in range(0, 5):
+for n in range(0, len(rnd_pred)):
   print("Predicted Quality: " + str(rnd_pred[n]) + ", Actual Quality: " + str(y_test_vals[n]))
 
 
